@@ -10,16 +10,23 @@ import geminiResponse from './gemini.js';
 
 
 const app = express()
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://aivirtual-assistant.up.railway.app",
+    process.env.FRONTEND_URL
+].filter(Boolean);
+
 app.use(cors({
-    origin:["http://localhost:5173",
-    "https://ai-voice-assistant-frontend-y1n9.onrender.com"
-    ],
+    origin: allowedOrigins,
     credentials:true,
     methods: ["GET","POST","PUT","DELETE"]
 }));
 const port = process.env.PORT || 8000
 app.use(express.json());
 app.use(cookieParser());
+app.get("/", (req, res) => {
+    res.status(200).json({ message: "Backend is running" });
+});
 app.use("/api/auth",authRouter);
 app.use("/api/user",userRouter);
 
@@ -30,4 +37,3 @@ app.listen(port,()=>{
     connectDb();
     console.log(`Server running on port ${port}`);
 })
-
