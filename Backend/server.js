@@ -11,7 +11,7 @@ import geminiResponse from './gemini.js';
 
 const app = express()
 app.use(cors({
-    origin:[process.env.CORS_ORIGIN || "http://localhost:5173",
+    origin:["http://localhost:5173",
     "https://ai-voice-assistant-frontend-y1n9.onrender.com"
     ],
     credentials:true,
