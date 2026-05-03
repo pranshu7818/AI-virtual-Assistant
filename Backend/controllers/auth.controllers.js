@@ -4,11 +4,11 @@ import User from "../models/user.model.js"
 import bcrypt from "bcryptjs"
 
 const cookieOptions = {
-    httpOnly: true,
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-    secure: process.env.NODE_ENV === "production"
-}
+  httpOnly: true,
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+  sameSite: "none",   // 🔥 always none
+  secure: true        // 🔥 always true (HTTPS)
+};
 
 // Controller For Sign Up
 export const signUp = async (req, res) => {
