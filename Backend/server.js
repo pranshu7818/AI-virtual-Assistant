@@ -11,14 +11,23 @@ import geminiResponse from './gemini.js';
 
 const app = express()
 const allowedOrigins = [
-    "http://localhost:5173",
-    process.env.FRONTEND_URL
+  "http://localhost:5173",
+  process.env.FRONTEND_URL
 ].filter(Boolean);
 
 app.use(cors({
-    origin: allowedOrigins,
-    credentials:true,
-    methods: ["GET","POST","PUT","DELETE"]
+  origin: function (origin, callback) {
+    // allow requests with no origin (postman, mobile apps)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error("CORS not allowed"));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"]
 }));
 const port = process.env.PORT || 8000
 app.use(express.json());
