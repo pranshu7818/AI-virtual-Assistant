@@ -12,7 +12,6 @@ import geminiResponse from './gemini.js';
 const app = express()
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://aivirtual-assistant.up.railway.app",
     process.env.FRONTEND_URL
 ].filter(Boolean);
 
