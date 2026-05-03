@@ -3,11 +3,13 @@ import genToken from "../config/token.js"
 import User from "../models/user.model.js"
 import bcrypt from "bcryptjs"
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const cookieOptions = {
   httpOnly: true,
   maxAge: 7 * 24 * 60 * 60 * 1000,
-  sameSite: "none",   // 🔥 always none
-  secure: true        // 🔥 always true (HTTPS)
+  sameSite: isProduction ? "none" : "lax",
+  secure: isProduction
 };
 
 // Controller For Sign Up
